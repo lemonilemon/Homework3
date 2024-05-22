@@ -67,6 +67,8 @@ class EqualWeightPortfolio:
         TODO: Complete Task 1 Below
         """
 
+        self.portfolio_weights.loc[:, assets] = 1 / len(assets)
+
         """
         TODO: Complete Task 1 Above
         """
@@ -117,7 +119,12 @@ class RiskParityPortfolio:
         """
         TODO: Complete Task 2 Below
         """
-
+        shifted_returns = df_returns.shift(1, fill_value=np.nan)
+        shifted_returns.iloc[1, :] = np.nan
+        self.portfolio_weights.loc[:, assets] = 1 / shifted_returns.rolling(window=self.lookback, min_periods=self.lookback).std()
+        sums = self.portfolio_weights.loc[:, assets].sum(axis=1)
+        sums.replace(0, np.nan, inplace=True)
+        self.portfolio_weights.loc[:, assets] = self.portfolio_weights.loc[:, assets].div(sums, axis=0)
         """
         TODO: Complete Task 2 Above
         """
