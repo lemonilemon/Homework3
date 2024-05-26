@@ -75,7 +75,15 @@ class MyPortfolio:
         TODO: Complete Task 4 Below
         """
 
-        self.portfolio_weights.loc[:, "XLK"] = 1
+        BstAsset = ""
+        MaxROI = 0
+        for asset in assets:
+            AssetPrices = self.price.loc[:, asset]
+            if AssetPrices[-1] / AssetPrices[0] > MaxROI:
+                MaxROI = AssetPrices[-1] / AssetPrices[0]
+                BstAsset = asset
+        self.portfolio_weights.loc[:, BstAsset] = 1
+
 
         """
         TODO: Complete Task 4 Above
