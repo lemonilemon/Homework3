@@ -75,6 +75,8 @@ class MyPortfolio:
         TODO: Complete Task 4 Below
         """
 
+        self.portfolio_weights.loc[:, "XLK"] = 1
+
         """
         TODO: Complete Task 4 Above
         """
